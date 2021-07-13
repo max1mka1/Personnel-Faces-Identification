@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing API with Dlib</title>
+</head>
+<body>
+    <h2>Face recognition with Dlib</h2>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" placeholder="Upload an image">
+        <button>Send</button>
+    </form>
+    <div style="background: #f6f6f6; padding: 20px; margin-top: 20px;">
+        <strong>Result with landmarks</strong>
+        {% if result and result.error %}
+            <p>{{ result.error }}</p>
+        {% elif result and result.image_with_landmarks %}
+            <p><img src="{{ result.image_with_landmarks }}" alt="face with landmarks"/></p>
+        {% else  %}
+            <p>The results will be placed here</p>
+        {% endif %}
+    </div>
+</body>
+</html>
