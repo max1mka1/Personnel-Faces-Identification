@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing API with Dlib</title>
+    <link rel="shortcut icon" type="image/x-icon" href='/favicon.ico'>
+    <title>Система распознавания лиц</title>
 </head>
 <body>
-    <h2>Face recognition with Dlib</h2>
+    <h2>Система распознавания лиц (Dlib)</h2>
     <form method="post" enctype="multipart/form-data">
         <input type="file" name="image" placeholder="Upload an image">
-        <button>Send</button>
+        <p>
+            <label for="person_id">Person ID</label>
+            <input type="text" name="person_id">
+        </p>
+        <button>Отправить изображение на распознавание</button>
     </form>
     <div style="background: #f6f6f6; padding: 20px; margin-top: 20px;">
-        <strong>Result with landmarks</strong>
+        <strong>Результат "предсказания" (лендмарки и ограничивающая лицо рамка)</strong>
         {% if result and result.error %}
             <p>{{ result.error }}</p>
-        {% elif result and result.image_with_landmarks %}
-            <p><img src="{{ result.image_with_landmarks }}" alt="face with landmarks"/></p>
-        {% else  %}
-            <p>The results will be placed here</p>
+        {% elif result and result.result_image %}
+            <p><img src="{{ result.result_image }}" alt="Результат предсказания моделью лиц"/></p>
+        {% else %}
+            <p>Здесь появится результат "предсказания" модели</p>
         {% endif %}
+        {%for key, val in result.items()%}
+            {% if key != 'result_image' %}
+                <li>{{key, val}}</li>
+            {% endif %}
+        {%endfor%}
     </div>
 </body>
 </html>
